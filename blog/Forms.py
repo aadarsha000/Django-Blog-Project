@@ -1,9 +1,7 @@
-from dataclasses import fields
-from tkinter.tix import Form
 from django import forms
 from .models import Post
 
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title','category', 'body']
+        fields = ['title','category', 'body', 'status']
