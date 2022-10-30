@@ -16,7 +16,7 @@ class Post(models.Model):
         ('published', 'published')
     )
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True)
     category = models.CharField(max_length=100, choices=Category_choice)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField()
