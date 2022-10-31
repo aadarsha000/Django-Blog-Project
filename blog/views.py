@@ -2,16 +2,22 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
 from .forms import PostForm
 from django.utils.text import slugify
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def postlist(request):
+    context={}
     posts = Post.objects.filter(status="published")
-    return render(request, 'blog\index.html', {"posts":posts})
+    user = request.user
+    context['posts']=posts
+    context['user']=user
+    return render(request, 'blog\index.html', context)
 
 def postdetail(request, id):
     post = get_object_or_404(Post, id=id)
     return render(request, 'blog\detail.html', {"post":post})
 
+@login_required(login_url='/account/login')
 def postCreate(request):
     context={}
     if request.method == "POST":
